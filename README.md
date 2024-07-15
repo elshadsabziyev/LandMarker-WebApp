@@ -17,6 +17,7 @@
     - [Version 1.1.0](#version-110)
     - [Version 2.0.0 (Previous Release)](#version-200-previous-release)
     - [Version 2.1.0 (Current Release)](#version-210-current-release)
+    - [Version 3.0.0 (Repository Update)](#version-300-repository-update)
     - [Future Enhancements](#future-enhancements)
   - [👨‍💻 Project Team](#-project-team)
   - [🤝 Contributing](#-contributing)
@@ -26,8 +27,9 @@
 
 ## 🌟 Introduction
 
-LandMarker is a Python-based application designed for landmark detection using the Google Cloud Vision API, Streamlit, 
-Folium and OpenAI's API. The application allows users to upload images containing landmarks, and the system will show the location of the landmark on an interactive map. The application is designed to be user-friendly and accessible, with a simple and intuitive interface. AI integration help to maintain this intuitive interface and provide short summary about the landmark. The application is designed to be easily deployable and scalable, with the potential for future enhancements and integrations.
+LandMarker is a web application that streamlines the process of recognizing and mapping landmarks in images. Developed using Google Cloud Vision API, Streamlit, and Folium, LandMarker aims to provide an efficient and seamless user experience. With its intuitive interface and AI Summary integration powered by TogetherAI, LandMarker enables users to effortlessly upload images, detect landmarks, and visualize them on an interactive map.
+
+This application is built to simplify the landmark mapping process for users. It is designed to the diverse needs of users, from casual image analyzers to enthusiasts seeking precise landmark recognition. Whether you're a history buff fascinated by ancient structures or a traveler seeking to plan your next adventure, LandMarker has got you covered. So, why wait? Explore the world of landmark mapping with LandMarker today!
 
 ---
 
@@ -38,7 +40,8 @@ LandMarker offers the following features:
 - **Landmark Detection**: Utilizes the Google Cloud Vision API for precise landmark recognition in images.
 - **Geographical Mapping**: Retrieves geographical coordinates (latitude and longitude) of detected landmarks.
 - **Interactive Map Display**: Exhibits detected landmarks on an interactive map using the Folium library.
-- **AI Integration**: Provides a short summary about the landmark using OpenAI API.
+- **AI Integration**: Provides a short summary about the landmark using 
+- **User Reviews**: Allows users to leave reviews on detected landmarks. 
 
 ---
 
@@ -49,7 +52,7 @@ The project utilizes the following technologies:
 - **Google Cloud Vision API**: Empowers the system for landmark detection in images.
 - **Folium**: Python library employed for creating interactive maps.
 - **Streamlit**: Web application framework facilitating the user interface.
-- **OpenAI API**: Used for providing short summary about the landmark.
+- **TogetherAI API**: Used for providing short summary about the landmark.
 - **PIL (Python Imaging Library)**: Utilized for image processing and display.
 
 ---
@@ -64,7 +67,7 @@ To set up and run this project locally, follow these steps:
         ```
     - Enter the project directory:
         ```bash
-        cd landmarker
+        cd LandMarker-WebApp
         ```
 2. **Set Up Environment**: Create a virtual environment and install required dependencies.
    - Create a virtual environment:
@@ -91,12 +94,12 @@ To set up and run this project locally, follow these steps:
     - Create a service account and download the JSON credentials file.
     - Go to https://www.convertsimple.com/convert-json-to-toml/ and convert the JSON file to TOML format.
     - Save the TOML file as secret.toml under the .streamlit directory.
-4. **OpenAI API Setup**: Obtain an API key for OpenAI and store it in the secret.toml file.
-    - Sign up for OpenAI and obtain an API key.
-    - Add the API key to the secret.toml file with key openai_api_key. It should look like this:
-        ```toml
-        openai_api_key = "your_api_key_here"
-        ```
+  
+4. **TogetherAI API Setup**: Set up the API key for the TogetherAI API.
+    - Create an account on TogetherAI.
+    - Navigate to the API Keys page.
+    - Enter the API key and paste it in the "API Key" field.
+
 5. **Running the Application**: Execute specific commands to run the Streamlit application.
     - Run the following command to start the application:
         ```bash
@@ -121,13 +124,14 @@ For local usage, credentials should be stored in a secret.toml file. For deploym
     4. Access the application using the provided URL.
     5. If you have any issues, consult the [Streamlit Sharing Documentation](https://docs.streamlit.io/en/stable/deploy_streamlit_app.html).
 - **For Other Platforms**: Consult the documentation for the specific hosting platform for deployment instructions.
+  
 ---
 
 ## 🏗️ Architecture
 
 ### Components
 - **Google Cloud Vision API**: Handles landmark detection in images.
-- **OpenAI API**: Provides short summary about the landmark.
+- **TogetherAI API**: Provides short summary about the landmark.
 - **GeoCoding API**: Used for getting the name of the City and Country of the landmark using reverse geocoding.
 - **Streamlit**: Web application framework for creating the user interface.
 - **Folium Map**: Used to display detected landmarks on an interactive map.
@@ -138,7 +142,7 @@ For local usage, credentials should be stored in a secret.toml file. For deploym
 2. Python backend sends the image data to the Google Cloud Vision API for landmark detection.
 3. The API returns landmark information (name and coordinates).
 4. GeoCoding API is used to get the name of the City and Country of the landmark using reverse geocoding from the coordinates.
-5. OpenAI API is used to get a short summary about the landmark using the name of the landmark.
+5. TogetherAI API is used to get a short summary about the landmark using the name of the landmark.
 6. Folium library creates an interactive map displaying the detected landmark.
 
 ---
@@ -157,7 +161,7 @@ For local usage, credentials should be stored in a secret.toml file. For deploym
 - Fix for map responsiveness and display issues.
   
 ### Version 2.0.0 (Previous Release)
-- OpenAI API integration for short summary about the landmark.
+- TogetherAI API integration for short summary about the landmark.
 - Streamlit Sharing deployment guide included.
 - Enhanced user interface and error handling.
 - Improved documentation and codebase organization.
@@ -171,6 +175,10 @@ For local usage, credentials should be stored in a secret.toml file. For deploym
 - Enhanced documentation and codebase organization.
 - Cache implementation for improved performance.
 - New AI summary provider - TogetherAI.
+
+### Version 3.0.0 (Repository Update)
+- Migrated to a new GitHub repository.
+
 
 ### Future Enhancements
 - Real-time camera capture capabilities for on-the-fly landmark detection.
