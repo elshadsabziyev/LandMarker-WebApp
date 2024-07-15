@@ -141,8 +141,7 @@ class FoliumMap:
 
     def add_marker(self, lat, lon, landmark_name, confidence):
         try:
-            confidence_score = float(
-                confidence.split(": ")[1].strip("%")) / 100
+            confidence_score = float(confidence.split(": ")[1].strip("%")) / 100
         except Exception as e:
             st.error(
                 f"""

@@ -6,6 +6,7 @@ import streamlit as st
 from google.cloud import vision
 from credentials import Credentials
 
+
 class GoogleCloudVision(Credentials):
     # Class definitions
     """

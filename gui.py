@@ -21,7 +21,8 @@ class Landmarker:
         self.summarizer = self.init_TogetherAI()
         self.firestore_connection = self.init_firestore()
         self.set_page_config()
-        st.html("""
+        st.html(
+            """
         <style>
         [data-testid=collapsedControl]::after {
             content: "Open Sidebar";
@@ -35,7 +36,8 @@ class Landmarker:
             /* New gradient background */
             color: hsla(330, 36%, 53%, 1);
         }
-        """,)
+        """,
+        )
 
     def init_google_cloud_vision(self):
         if self.debug:
@@ -115,8 +117,11 @@ class Landmarker:
         </div>
         """
         st.markdown(title, unsafe_allow_html=True)
-        with st.sidebar.expander("_**Click here to toggle the help view**_", expanded=False):
-            st.write("""
+        with st.sidebar.expander(
+            "_**Click here to toggle the help view**_", expanded=False
+        ):
+            st.write(
+                """
 # Welcome to the Landmark Detection App!
 This app uses Google Cloud Vision to detect landmarks in images.
 ## How to use this app:
@@ -128,7 +133,8 @@ This app uses Google Cloud Vision to detect landmarks in images.
 - Try to make sure the landmark is the main focus of the image. If the landmark is in the background or partially obscured, it may be harder for Google Cloud Vision to identify it.
 - Google Cloud Vision can identify many famous landmarks, like the Eiffel Tower or the Grand Canyon. If you're not sure what to upload, try starting with a picture of a well-known landmark.
 We hope you enjoy using the Landmark Detection App!
-""")
+"""
+            )
         gc = self.gc
         fm = self.fm
         with st.sidebar.container(border=True):
@@ -144,7 +150,9 @@ We hope you enjoy using the Landmark Detection App!
                 """
             )
             try:
-                with st.sidebar.expander("_Please point the camera at a **landmark**._", expanded=True):
+                with st.sidebar.expander(
+                    "_Please point the camera at a **landmark**._", expanded=True
+                ):
                     uploaded_file = st.camera_input(
                         label="Take a snapshot of a landmark.",
                         label_visibility="collapsed",
@@ -163,7 +171,9 @@ We hope you enjoy using the Landmark Detection App!
                 )
         else:
             try:
-                with st.sidebar.expander("_Please upload an image of a **landmark**._", expanded=True):
+                with st.sidebar.expander(
+                    "_Please upload an image of a **landmark**._", expanded=True
+                ):
                     uploaded_file = st.file_uploader(
                         type=SUPPORTED_FORMATS,
                         accept_multiple_files=False,
@@ -214,8 +224,7 @@ We hope you enjoy using the Landmark Detection App!
             landmarks = gc.find_landmark(uploaded_file)
             for landmark in landmarks:
                 landmark_name = landmark.description
-                confidence = "Matched: " + \
-                    str(round(landmark.score * 100, 2)) + "%"
+                confidence = "Matched: " + str(round(landmark.score * 100, 2)) + "%"
                 lat = landmark.locations[0].lat_lng.latitude
                 lon = landmark.locations[0].lat_lng.longitude
                 fm.add_marker(lat, lon, landmark_name, confidence)
@@ -238,8 +247,7 @@ We hope you enjoy using the Landmark Detection App!
                 )
                 st.stop()
             try:
-                fm.map.fit_bounds(fm.map.get_bounds(), padding=[
-                                  40, 40], max_zoom=17)
+                fm.map.fit_bounds(fm.map.get_bounds(), padding=[40, 40], max_zoom=17)
             except Exception as e:
                 st.warning(
                     f"""
@@ -294,28 +302,33 @@ We hope you enjoy using the Landmark Detection App!
                 city, country = fm.get_city_country(lat, lon)
                 if city and country:
                     if (city, country) != PREVIOUS_CITY_COUNTRY:
-                        with st.status("**Identifying the location...**", expanded=False) as status:
+                        with st.status(
+                            "**Identifying the location...**", expanded=False
+                        ) as status:
                             st.write(
                                 f"""
                                 ## {landmark_most_matched}
                                 """
                             )
-                            status.update(state="complete",
-                                          label=f"_Location Identified_ : **{city}, {country}**", expanded=True)
+                            status.update(
+                                state="complete",
+                                label=f"_Location Identified_ : **{city}, {country}**",
+                                expanded=True,
+                            )
                             try:
                                 prompt = f"Craft a professional and concise 80-word summary about {landmark_most_matched} in {city}, {country}. Include the origin of its name, historical significance, and cultural impact. Share fascinating facts that make it a must-visit for tourists."
                                 if st.session_state.get("summary_stream") is not None:
                                     st.write_stream(
-                                        self.summarizer.stream_summary(prompt))
+                                        self.summarizer.stream_summary(prompt)
+                                    )
                                     time.sleep(0.10)
                                 else:
                                     with st.spinner("Generating LLM Based Summary..."):
                                         summary = self.summarizer.generate_summary(
-                                            prompt)
-                                        # write summary in bold
-                                        st.markdown(
-                                            f"**{str(summary).strip()}**"
+                                            prompt
                                         )
+                                        # write summary in bold
+                                        st.markdown(f"**{str(summary).strip()}**")
                                 st.warning(
                                     """
                                     ###### The LLM Based Summary is generated by the AI model.
@@ -385,8 +398,12 @@ We hope you enjoy using the Landmark Detection App!
                         )
                 with st.status("Loading the map...", expanded=False) as status:
                     with st.container(height=460):
-                        st_folium(fm.map, use_container_width=True, height=400,
-                                  returned_objects=[])
+                        st_folium(
+                            fm.map,
+                            use_container_width=True,
+                            height=400,
+                            returned_objects=[],
+                        )
                     status.update(
                         state="complete",
                         label="_Map Loaded_ : **Click on the markers to see the landmark name and similarity score.**",
@@ -408,7 +425,8 @@ We hope you enjoy using the Landmark Detection App!
                                 label="Username", help="Enter your username."
                             )
                             review = st.text_area(
-                                label="Review", help="Enter your review.")
+                                label="Review", help="Enter your review."
+                            )
                             score = st.slider(
                                 label="Score",
                                 min_value=1,
@@ -417,8 +435,7 @@ We hope you enjoy using the Landmark Detection App!
                                 help="Choose a score.",
                                 step=1,
                             )
-                            submit_button = st.form_submit_button(
-                                label="Submit")
+                            submit_button = st.form_submit_button(label="Submit")
                         if submit_button:
                             if username and review and score:
                                 self.firestore_connection.create_new_review(
@@ -437,19 +454,25 @@ We hope you enjoy using the Landmark Detection App!
                     ):
                         if reviews:
                             for review in reviews:
+
                                 def mask_username(username):
                                     words = username.split()
                                     masked_words = []
                                     for word in words:
                                         if len(word) > 3:
-                                            masked_word = word[:2] + "\\*" * \
-                                                (len(word) - 3) + word[-1]
+                                            masked_word = (
+                                                word[:2]
+                                                + "\\*" * (len(word) - 3)
+                                                + word[-1]
+                                            )
                                         else:
                                             masked_word = word
                                         masked_words.append(masked_word)
-                                    return ' '.join(masked_words)
+                                    return " ".join(masked_words)
+
                                 st.markdown(
-                                    f"##### {mask_username(review['Username'])}")
+                                    f"##### {mask_username(review['Username'])}"
+                                )
                                 st.markdown(
                                     f""" {"**Excellent**" if review['Score10'] >= 9 else "**Good**" if review['Score10'] >= 7 else "**Average**" if review['Score10'] >= 5 else "**Poor**" if review['Score10'] >= 3 else "**Terrible**"} ({"⭐" * 1 if review['Score10'] <= 2 else "⭐" * 2 if review['Score10'] <= 4 else "⭐" * 3 if review['Score10'] <= 6 else "⭐" * 4 if review['Score10'] <= 8 else "⭐" * 5})"""
                                 )
@@ -461,7 +484,10 @@ We hope you enjoy using the Landmark Detection App!
                                 - No reviews yet. Be the first one to review this landmark!
                                 """
                             )
-                    with st.expander("**Click here to see AI generated review summary.**", expanded=True):
+                    with st.expander(
+                        "**Click here to see AI generated review summary.**",
+                        expanded=True,
+                    ):
                         if reviews:
                             prompt = f"Craft a professional and concise 2-3 sentence review summary about {landmark_most_matched} in {city}, {country} considering the reviews: {', '.join([r['Review'] for r in reviews])}. Focus on verifiable information and avoid claims without evidence (e.g., rumors, speculation). At the end mention unverifiable/unrelated claims if any."
                             summary = self.summarizer.summarize_review(prompt)

@@ -8,8 +8,7 @@ class Firestore(Credentials):
     def __init__(self):
         super().__init__()
         try:
-            self.client = firestore.Client(
-                credentials=self.Firestore_credentials)
+            self.client = firestore.Client(credentials=self.Firestore_credentials)
         except Exception as e:
             st.error(
                 f"""
