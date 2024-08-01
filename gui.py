@@ -59,17 +59,17 @@ class Landmarker:
 
     def set_page_config(self):
         st.set_page_config(
-            page_title="Landmark Detection",
+            page_title="Land~Marker",
             page_icon="logo.png",
             layout="wide",
             initial_sidebar_state="auto",
             menu_items={
-                "Get Help": "mailto:landmarker+elshad.sabziyev@yahoo.com",
-                "Report a Bug": "https://www.github.com/elshadsabziyev/landmarker/issues",
+                "Get Help": "mailto:sabziyevelshad@gmail.com",
+                "Report a Bug": "https://github.com/elshadsabziyev/LandMarker-WebApp/issues",
                 "About": """
                 # Land~Marker
                 ### Created by:
-                - [Elshad Sabziyev](https://www.github.com/elshadsabziyev)
+                - [Elshad Sabziyev](https://github.com/elshadsabziyev/)
                 """,
             },
         )
