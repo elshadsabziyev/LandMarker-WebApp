@@ -1,8 +1,7 @@
 # # NOTE: This file contains the AI_LLM class which is used to generate a summary about the landmark detected using the OpenAI API.
-import pickle
+import time
 import streamlit as st
 from together import Together
-import time
 from credentials import Credentials
 
 
