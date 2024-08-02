@@ -10,12 +10,10 @@ if __name__ == "__main__":
     try:
         landmarker.main()
     except Exception as e:
-        st.error(
-            f"""
+        st.error(f"""
             ### Error: App could not be loaded.
             - Error Code: 0x000
             - Most likely, it's not your fault.
             - Please try again. If the problem persists, please contact the developer.
-            """
-        )
+            """)
         st.stop()
